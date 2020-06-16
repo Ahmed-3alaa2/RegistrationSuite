@@ -20,7 +20,7 @@ String firstname = fakerdata.name().firstName();
 String lastname= fakerdata.name().lastName();
 String phonenumber = fakerdata.phoneNumber().cellPhone();
 String email = fakerdata.internet().emailAddress();
-String password = fakerdata.number().digits(8).toString();
+String password = fakerdata.lorem().characters(8, true, false);
 
 @Test(priority = 1)
 public void UserRegistration() {
@@ -29,6 +29,7 @@ public void UserRegistration() {
 	registrationpage.UserRegistration(firstname, lastname, phonenumber, email, password);
 	// check if word "booking" displayed or not after registration
 	Assert.assertTrue(registrationpage.Text.isDisplayed());
+	System.out.println(password);
 }
 
 @Test(priority = 2)

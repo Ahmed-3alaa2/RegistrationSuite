@@ -40,7 +40,7 @@ public class TestBase {
 		capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 		capabilities.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
 		proxy.newHar("PhpTravel");
-		System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"//driver//chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"\\driver\\chromedriver.exe");
 		driver = new ChromeDriver(capabilities);
 		proxy.enableHarCaptureTypes(CaptureType.REQUEST_CONTENT, CaptureType.RESPONSE_CONTENT,CaptureType.REQUEST_HEADERS,CaptureType.RESPONSE_HEADERS);
 		driver.manage().window().maximize();
