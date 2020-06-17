@@ -1,5 +1,5 @@
 # RegistrationSuite
-A registration test for a travelling website.Starts by directing to the url and entering the credentials to the registration portal then asserting the log out and in using the same credentials authentication.
+A registration Suite for a travelling website.Process Starts by directing to the url and entering the credentials to the registration portal then asserting the log out and in using the same credentials authentication.
 
 # Prerequisites
 A java ide supplied with jdk v.14 eclipse,intellij,etc and maven for installing dependencies 
