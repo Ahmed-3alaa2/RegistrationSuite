@@ -26,23 +26,19 @@ import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.client.ClientUtil;
 import net.lightbody.bmp.core.har.Har;
 import net.lightbody.bmp.proxy.CaptureType;
+import browsermob.Browsermob;
 
 public class TestBase {
 	public   WebDriver driver;
-	// initialize proxy to monitor request and save response in har file
-	BrowserMobProxy proxy = new BrowserMobProxyServer();
+	
+	
+	//initialize proxy to track request and save response
+	Browsermob browsermob = new Browsermob();
 	@BeforeSuite
 	public void StartDriver() {
-		proxy.start();
-		Proxy seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
-		DesiredCapabilities capabilities = new DesiredCapabilities();
-		capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
-		capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-		capabilities.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
-		proxy.newHar("PhpTravel");
+		DesiredCapabilities capabilities = browsermob.capabilites();
 		System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"\\driver\\chromedriver.exe");
 		driver = new ChromeDriver(capabilities);
-		proxy.enableHarCaptureTypes(CaptureType.REQUEST_CONTENT, CaptureType.RESPONSE_CONTENT,CaptureType.REQUEST_HEADERS,CaptureType.RESPONSE_HEADERS);
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
@@ -53,15 +49,15 @@ public class TestBase {
 
 	@AfterSuite
 	public void TearDown() {
-		Har har = proxy.getHar();
+		Har har =browsermob.Proxy().getHar();
 		try {
-			// getting post response from harfile
+			// getting post response for signup request
 			har.getLog().getEntries().removeIf(x-> !x.getRequest().getUrl().equals("https://www.phptravels.net/account/signup"));
 			har.writeTo(new File(System.getProperty("user.dir") + "\\har\\Response-Information.har"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		proxy.stop();
+		browsermob.Proxy().stop();
 		driver.close();
 	}
 

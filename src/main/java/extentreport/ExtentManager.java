@@ -22,11 +22,12 @@ public class ExtentManager {
 		htmlReporter.config().setEncoding("utf-8");
 		htmlReporter.config().setDocumentTitle("Automation Reports");
 		htmlReporter.config().setReportName("Automation Test Results");
-		htmlReporter.config().setTheme(Theme.STANDARD);
+		htmlReporter.config().setTheme(Theme.DARK);
 		
 		extent = new ExtentReports();
-		//extent.setSystemInfo("", "");
-		//extent.setSystemInfo("Browser", "Chrome");
+		extent.setSystemInfo("Java v", "14");
+		extent.setSystemInfo("Browser", "Chrome");
+		
 		extent.attachReporter(htmlReporter);
 		
 		return extent;
